@@ -3,7 +3,7 @@ import Input from "../../components/ui/Input.jsx";
 import Button from "../../components/ui/Button.jsx";
 import { User, Mail, LockKeyhole } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import GoogleIcon from "../../components/GoogleIcon.jsx";
+import GoogleIcon from "../../components/common/GoogleIcon.jsx";
 import { useForm } from "react-hook-form";
 import { userRegister } from "../../redux/authActions.js";
 import { useDispatch } from "react-redux";

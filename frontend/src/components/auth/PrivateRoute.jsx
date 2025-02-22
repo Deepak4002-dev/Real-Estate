@@ -1,23 +1,24 @@
+// src/components/PrivateRoute.jsx
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Unauthorized from "../../pages/auth/Unauthorized";
 
 const PrivateRoute = ({ children, requiredRole }) => {
-  const { role, isLogged } = useSelector((state) => state.auth);
+  const { isLogged, role } = useSelector((state) => state.auth);
   const location = useLocation();
 
-  // Redirect to login if not authenticated
+  // ✅ 1. If not logged in, redirect to login page
   if (!isLogged) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Check if the user has the required role
-  if (requiredRole && (!role || role !== requiredRole)) {
-    // Redirect to role-specific dashboard or fallback route
-    return <Navigate to={role ? `/${role}-dashboard` : "/login"} />;
+  // ✅ 2. If logged in but lacks proper role, show Unauthorized
+  if (requiredRole && role !== requiredRole) {
+    return <Unauthorized />;
   }
 
-  // Render the protected component
+  // ✅ 3. If authenticated & authorized, render child components
   return children;
 };
 

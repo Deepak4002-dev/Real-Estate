@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Button from "./ui/Button";
-import { assets, projectsData } from "../assets/assets.js";
+import Button from "../ui/Button.jsx";
+import { assets, projectsData } from "../../assets/assets.js";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 

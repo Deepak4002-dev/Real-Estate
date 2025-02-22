@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Input from "../../components/ui/Input";
-import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input.jsx";
+import Button from "../../components/ui/Button.jsx";
 import { Mail, LockKeyhole } from "lucide-react";
 import { Link } from "react-router-dom";
-import GoogleIcon from "../../components/GoogleIcon.jsx";
+import GoogleIcon from "../../components/common/GoogleIcon.jsx";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -24,9 +24,9 @@ const Login = () => {
   useEffect(() => {
     if (isLogged) {
       if (role === "admin") {
-        navigate("/admin-dashboard");
+        navigate("/admin");
       } else {
-        navigate("/user-dashboard");
+        navigate("/user");
       }
     }
   }, [navigate, isLogged, role]);
@@ -34,10 +34,12 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await dispatch(userLogin(data)).unwrap();
-      if ((response.role = "user")) {
-        navigate("/user-dashboard");
+      if (response.role === "user") {
+        navigate("/user");
+      } else if (response.role === "admin") {
+        navigate("/admin");
       } else {
-        navigate("/admin-dashboard");
+        navigate("/unauthorized");
       }
       toast.success(response.message);
     } catch (error) {
